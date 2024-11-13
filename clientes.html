@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yucatán: Descubre sin Límites</title>
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .header {
+            background-color: #008080;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2em;
+            color: #FFD700;
+        }
+        nav a {
+            background-color: #d19595;
+            color: #333;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #b37d7d;
+        }
+        .content {
+            display: none;
+            padding: 20px;
+        }
+        .content.active {
+            display: block;
+        }
+        .content h2 {
+            color: #008080;
+        }
+    </style>
+    <script>
+        function showPlace(placeId) {
+            const sections = document.querySelectorAll('.content');
+            sections.forEach((section) => section.classList.remove('active'));
+            document.getElementById(placeId).classList.add('active');
+        }
+        window.onload = function() {
+            showPlace('inicio');
+        };
+    </script>
+</head>
+<body>
+    <header class="header">
+        <h1>Bienvenido a Yucatán</h1>
+        <nav>
+            <a href="#" onclick="showPlace('inicio')">Inicio</a>
+            <a href="#" onclick="showPlace('comentarios')">Comentarios</a>
+            <a href="#" onclick="showPlace('lugares')">Lugares</a>
+            <a href="#" onclick="showPlace('contacto')">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- Sección de Inicio -->
+    <section id="inicio" class="content active">
+        <h2>Bienvenidos al Turismo en Yucatán</h2>
+        <p>Descubre la belleza y la historia de Yucatán.</p>
+    </section>
+
+    <!-- Sección de Lugares -->
+    <section id="lugares" class="content">
+        <h2>Lugares Disponibles</h2>
+        <!-- Aquí se muestran los lugares en solo lectura -->
+        <?php
+        include 'conexion.php';
+        $result = $conn->query("SELECT * FROM lugares");
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<div>";
+                echo "<p><strong>Lugar:</strong> " . $row['nombre_lugar'] . "</p>";
+                echo "<p><strong>Fecha de Inicio:</strong> " . $row['fecha_inicio'] . "</p>";
+                echo "<p><strong>Fecha de Fin:</strong> " . $row['fecha_fin'] . "</p>";
+                echo "<p><strong>Costo por Persona:</strong> $" . $row['costo_por_persona'] . "</p>";
+                echo "<p><strong>Descuento:</strong> " . $row['descuento'] . "%</p>";
+                echo "<p><strong>Anticipo:</strong> $" . $row['anticipo'] . "</p>";
+                echo "</div><hr>";
+            }
+        } else {
+            echo "<p>No hay lugares disponibles en este momento.</p>";
+        }
+        ?>
+    </section>
+
+    <!-- Sección de Comentarios -->
+    <section id="comentarios" class="content">
+        <h2>Comentarios</h2>
+        <?php
+        include 'conexion.php';
+        $id_cliente = $_SESSION['id_cliente']; // Asume que el cliente está logueado y tiene su id en la sesión
+        $result = $conn->query("SELECT * FROM comentarios WHERE id_cliente = $id_cliente");
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<div>";
+                echo "<p><strong>Comentario:</strong> " . $row['comentario_usuario'] . "</p>";
+                echo "<p><strong>Respuesta Admin:</strong> " . $row['comentario_admin'] . "</p>";
+                
+                // Formulario para editar el comentario
+                echo "<form action='editar_comentario.php' method='post'>";
+                echo "<input type='hidden' name='id_comentario' value='" . $row['id_comentario'] . "'>";
+                echo "<label>Editar comentario:</label>";
+                echo "<textarea name='comentario_usuario'>" . $row['comentario_usuario'] . "</textarea>";
+                echo "<button type='submit'>Actualizar</button>";
+                echo "</form>";
+
+                // Botón para eliminar el comentario
+                echo "<form action='eliminar_comentario.php' method='post' style='display:inline;'>";
+                echo "<input type='hidden' name='id_comentario' value='" . $row['id_comentario'] . "'>";
+                echo "<button type='submit'>Eliminar</button>";
+                echo "</form>";
+
+                echo "</div><hr>";
+            }
+        } else {
+            echo "<p>No tienes comentarios en este momento.</p>";
+        }
+        ?>
+    </section>
+
+    <!-- Sección de Contacto -->
+    <section id="contacto" class="content">
+        <h2>Contacto</h2>
+        <p>Dirección: C. 29, Sta Rita, 97702 Tizimín, Yuc.</p>
+        <p>Teléfono: 986 863 4279</p>
+    </section>
+</body>
+</html>
