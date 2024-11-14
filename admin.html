@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yucatán: Un paraíso por descubrir</title>
-    <link rel="stylesheet" href="guias.css"> <!-- Enlace al archivo CSS exte>
+    <link rel="stylesheet" href="guias.css"> <!-- Enlace al archivo CSS externo -->
     <style>
         /* Estilos generales */
         body {
@@ -37,11 +37,11 @@
         nav a:hover {
             background-color: #b37d7d;
         }
-    .content {
+        .content {
             display: none;
             padding: 20px;
         }
-        .content.active {
+         .content.active {
             display: block;
         }
         .content h2 {
@@ -71,7 +71,7 @@
     table tr:hover {
         background-color: #f1f1f1;
     }
-     button {
+         button {
             background-color: #008080;
             color: white;
             border: none;
@@ -110,7 +110,7 @@
         gap: 10px;
         margin-top: 20px;
     }
-       button[type="submit"] {
+         button[type="submit"] {
         background-color: #008080;
         color: white;
         padding: 10px 20px;
@@ -144,16 +144,16 @@
     <script>
         function showPlace(placeId) {
             const sections = document.querySelectorAll('.content');
-            sections.forEach((section) => section.classList.remove('active')>
+            sections.forEach((section) => section.classList.remove('active'));
             document.getElementById(placeId).classList.add('active');
         }
         window.onload = function() {
             showPlace('inicio');
         };
     </script>
-    </head>
+</head>
 <body>
-    <header class="header">
+ <header class="header">
         <img src="Logo.jpeg" alt="Logotipo">
         <h1>Yucatán: Un paraíso por descubrir</h1>
         <nav>
@@ -183,7 +183,7 @@
     <!-- Sección de Tizimín -->
     <section id="tizimin" class="content">
         <h2>Tizimín</h2>
-        <p>Explora Tizimín, conocido por su tradicional feria de los Reyes.<>
+        <p>Explora Tizimín, conocido por su tradicional feria de los Reyes.</p>
         <img src="tizimin.jpg" alt="Imagen de Tizimín">
     </section>
 
@@ -196,7 +196,7 @@
      <!-- Sección de Izamal -->
     <section id="izamal" class="content">
         <h2>Izamal</h2>
-        <p>Izamal es una hermosa ciudad colonial fundada a mediados del sigl>
+        <p>Izamal es una hermosa ciudad colonial fundada a mediados del siglo XVI sobre los vestigios de una antigua pirámide maya.</p>
         <img src="Izamal1.jpg" alt="Imagen de Izamal">
         <button onclick="showPlace('inicio')">Volver al inicio</button>
     </section>
@@ -204,7 +204,7 @@
     <!-- Sección de Motul -->
     <section id="motul" class="content">
         <h2>Motul</h2>
-        <p>Motul conserva su historia maya y colonial con una arquitectura i>
+        <p>Motul conserva su historia maya y colonial con una arquitectura impresionante y una cultura vibrante.</p>
         <img src="Images/Motull.jpeg" alt="Imagen de Motul">
         <button onclick="showPlace('inicio')">Volver al inicio</button>
     </section>
@@ -218,7 +218,7 @@
         $result = $conn->query("SELECT * FROM comentarios");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                echo "<p><strong>Usuario:</strong> " . $row['id_cliente'] . >
+                echo "<p><strong>Usuario:</strong> " . $row['id_cliente'] . "<br><strong>Comentario:</strong> " . $row['comentario'] . "</p>";
             }
         } else {
             echo "<p>No hay comentarios disponibles.</p>";
@@ -231,12 +231,11 @@
     <form action="mostrar_lugares.php" method="post">
         <button type="submit">Entrar</button>
     </form>
-    <form action="agregar_lugar.html" method="post" style="margin-top: 10px;>
+    <form action="agregar_lugar.html" method="post" style="margin-top: 10px;">
         <button type="submit">Agregar Lugar</button>
     </form>
-        </section>
-
-        <section id="guias" class="content">
+</section>
+   <section id="guias" class="content">
     <h2>Guías Disponibles</h2>
     <form action="mostrar_guias.php" method="post">
         <button type="submit">Entrar</button>
@@ -254,6 +253,9 @@
     </section>
 </body>
 </html>
+
+
+
 
 
 
