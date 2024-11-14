@@ -3,7 +3,7 @@
 include 'conexion.php';
 
 // Verificar que todos los campos se hayan enviado
-if (isset($_POST['nombre_guia'], $_POST['numero_identificacion'], $_POST['lo>
+if (isset($_POST['nombre_guia'], $_POST['numero_identificacion'], $_POST['longevidad'], $_POST['salario'], $_POST['id_cliente'])) {
 
     // Obtener valores del formulario
     $nombre_guia = $_POST['nombre_guia'];
@@ -13,8 +13,8 @@ if (isset($_POST['nombre_guia'], $_POST['numero_identificacion'], $_POST['lo>
     $id_cliente = $_POST['id_cliente'];
 
     // Consulta de inserción de datos
-    $sql = "INSERT INTO guias (nombre_guia, numero_identificacion, longevida>
-            VALUES ('$nombre_guia', '$numero_identificacion', '$longevidad',>
+    $sql = "INSERT INTO guias (nombre_guia, numero_identificacion, longevidad, salario, id_cliente)
+            VALUES ('$nombre_guia', '$numero_identificacion', '$longevidad', '$salario', '$id_cliente')";
 
     // Ejecutar la consulta
     if ($conn->query($sql) === TRUE) {
@@ -29,3 +29,5 @@ if (isset($_POST['nombre_guia'], $_POST['numero_identificacion'], $_POST['lo>
 } else {
     echo "Por favor completa todos los campos";
 }
+
+
